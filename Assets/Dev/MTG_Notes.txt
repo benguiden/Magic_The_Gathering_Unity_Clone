@@ -1,0 +1,26 @@
+-----------------------
+------Terminology------
+-----------------------
+
+Player
+    -Life
+    -Deck
+    -Hand
+    -Battlefield Side
+    -Graveyard
+    -Exile
+    
+ Card_Data
+    -Name
+    -Type
+    -Abilities
+    -Flavour
+    -Power
+    -Toughness
+    -Casting Cost
+    
+Card
+    -GUID
+    -State
+    -Player
+    -Battlefield Side
