@@ -2,6 +2,10 @@
 ------Terminology------
 -----------------------
 
+Match - The entire game of MTG that is completed when one of the players wins
+Round - Ends when each layer takes their turns
+Turn - Ends for each player independently once they've completed all of their steps / phases
+
 Player
     -Life
     -Deck
@@ -24,3 +28,20 @@ Card
     -State
     -Player
     -Battlefield Side
+    
+Board
+    -Battlefield Sides
+    
+Battlefield Side
+    -Active cards
+    -Graveyard
+    -Exile
+    -Player
+    
+    
+
+
+
+MatchProcessor
+    -Determines win/lose conditions
+    -Going to iterate through the round processor -> turn processor -> turn phase processor
