@@ -1,15 +1,10 @@
-namespace MTG
+namespace MTG.Backend
 {
 
-    namespace Backend
+    public class RoundProcessor_Standard : RoundProcessor
     {
 
-        public class RoundProcessor_Standard : RoundProcessor
-        {
 
-            
-
-        }
 
     }
 

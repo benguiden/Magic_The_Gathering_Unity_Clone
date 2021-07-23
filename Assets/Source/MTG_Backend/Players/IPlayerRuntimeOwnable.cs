@@ -1,15 +1,11 @@
-namespace MTG
+namespace MTG.Backend
 {
-    namespace Backend
+
+    public interface IPlayerRuntimeOwnable
     {
 
-        public interface IPlayerRuntimeOwnable
-        {
+        public PlayerRuntime OwningPlayer { get; }
 
-            public PlayerRuntime OwningPlayer { get; }
-
-        }
-        
     }
-    
+
 }

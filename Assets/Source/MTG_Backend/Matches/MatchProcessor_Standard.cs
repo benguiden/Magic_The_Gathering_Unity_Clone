@@ -1,15 +1,11 @@
-namespace MTG
+namespace MTG.Backend
 {
-    namespace Backend
+
+    public class MatchProcessor_Standard : MatchProcessor
     {
 
-        public class MatchProcessor_Standard : MatchProcessor
-        {
 
-            
-            
-        }
 
     }
-    
+
 }

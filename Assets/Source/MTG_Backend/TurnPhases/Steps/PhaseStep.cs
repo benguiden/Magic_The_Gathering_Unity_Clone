@@ -1,15 +1,10 @@
-namespace MTG
+namespace MTG.Backend
 {
 
-    namespace Backend
+    public abstract class PhaseStep
     {
-        
-        public abstract class PhaseStep
-        {
 
-            public abstract void Execute();
-
-        }
+        public abstract void Execute();
 
     }
 

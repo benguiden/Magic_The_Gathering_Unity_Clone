@@ -1,27 +1,22 @@
 using MTG.Backend.TurnPhases;
 
-namespace MTG
+namespace MTG.Backend
 {
 
-    namespace Backend
+    public class TurnProcessor_Standard : TurnProcessor
     {
-        
-        public class TurnProcessor_Standard : TurnProcessor
+
+        protected override TurnPhase[] ImplementTurnPhases()
         {
-            
-            protected override TurnPhase[] ImplementTurnPhases()
+            return new TurnPhase[]
             {
-                return new TurnPhase[]
-                {
-                    new TurnPhase_StandardBeginningPhase(this)
-                };
-            }
-
-            protected override void StartTurnImplemented() { }
-
-            protected override void EndImplemented() { }
-            
+                new TurnPhase_StandardBeginningPhase(this)
+            };
         }
+
+        protected override void StartTurnImplemented() { }
+
+        protected override void EndImplemented() { }
 
     }
 

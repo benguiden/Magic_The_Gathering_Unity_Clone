@@ -1,19 +1,13 @@
-namespace MTG
+namespace MTG.Backend
 {
 
-    namespace Backend
+    public interface IPlayerRuntimeDependency : IDependency
     {
 
-        public interface IPlayerRuntimeDependency : IDependency
-        {
+        void SetDependency(PlayerRuntime playerRuntime);
 
-            void SetDependency(PlayerRuntime playerRuntime);
-            
-            [Dependency]
-            PlayerRuntime PlayerRuntimeDependency { get; }
+        [Dependency] PlayerRuntime PlayerRuntimeDependency { get; }
 
-        }
-        
     }
 
 }

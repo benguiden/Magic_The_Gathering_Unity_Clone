@@ -1,17 +1,12 @@
-namespace MTG
+namespace MTG.Backend
 {
 
-    namespace Backend
+    public abstract class PlayerCardRuntimeCollections : ICardRuntimeCollectionDependency
     {
 
-        public abstract class PlayerCardRuntimeCollections : ICardRuntimeCollectionDependency
-        {
+        public abstract void SetDependency(CardRuntimeCollection cardRuntimeCollection);
 
-            public abstract void SetDependency(CardRuntimeCollection cardRuntimeCollection);
-
-            public abstract CardRuntimeCollection CardRuntimeCollectionDependency { get; }
-            
-        }
+        public abstract CardRuntimeCollection CardRuntimeCollectionDependency { get; }
 
     }
 

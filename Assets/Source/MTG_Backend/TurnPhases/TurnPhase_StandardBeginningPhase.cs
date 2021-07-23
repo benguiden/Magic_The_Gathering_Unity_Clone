@@ -1,41 +1,28 @@
 using MTG.Backend.TurnPhases.PhaseSteps;
 
-namespace MTG
+namespace MTG.Backend.TurnPhases
 {
 
-    namespace Backend
+    public class TurnPhase_StandardBeginningPhase : TurnPhase
     {
 
-        namespace TurnPhases
+        public TurnPhase_StandardBeginningPhase(TurnProcessor turnTurnProcessor) : base(turnTurnProcessor) { }
+
+        protected override PhaseStep[] ImplementPhaseSteps()
         {
-
-            public class TurnPhase_StandardBeginningPhase : TurnPhase
+            return new PhaseStep[]
             {
-                
-                public TurnPhase_StandardBeginningPhase(TurnProcessor turnTurnProcessor) : base(turnTurnProcessor)
-                {
-                }
-
-                protected override PhaseStep[] ImplementPhaseSteps()
-                {
-                    return new PhaseStep[]
-                    {
-                        new PhaseStep_Untap(),
-                        new PhaseStep_Upkeep(),
-                        new PhaseStep_Draw()
-                    };
-                }
-
-                public override TurnPhase Copy(TurnProcessor turnTurnProcessor) =>
-                    new TurnPhase_StandardBeginningPhase(turnTurnProcessor);
-
-                protected override void EnterImplemented() { }
-
-                protected override void ExitImplemented() { }
-                
-            }
-
+                new PhaseStep_Untap(),
+                new PhaseStep_Upkeep(),
+                new PhaseStep_Draw()
+            };
         }
+
+        public override TurnPhase Copy(TurnProcessor turnTurnProcessor) => new TurnPhase_StandardBeginningPhase(turnTurnProcessor);
+
+        protected override void EnterImplemented() { }
+
+        protected override void ExitImplemented() { }
 
     }
 

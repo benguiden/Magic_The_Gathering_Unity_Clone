@@ -1,19 +1,13 @@
-namespace MTG
+namespace MTG.Backend
 {
 
-    namespace Backend
+    public interface IRoundProcessorDependency : IDependency
     {
 
-        public interface IRoundProcessorDependency : IDependency
-        {
+        void SetDependency(RoundProcessor roundProcessor);
 
-            void SetDependency(RoundProcessor roundProcessor);
-            
-            [Dependency]
-            RoundProcessor RoundProcessorDependency { get; }
+        [Dependency] RoundProcessor RoundProcessorDependency { get; }
 
-        }
-        
     }
 
 }

@@ -1,27 +1,12 @@
-namespace MTG
+namespace MTG.Backend.TurnPhases.PhaseSteps
 {
 
-    namespace Backend
+    public class PhaseStep_Upkeep : PhaseStep
     {
 
-        namespace TurnPhases
+        public override void Execute()
         {
-
-            namespace PhaseSteps
-            {
-
-                public class PhaseStep_Upkeep : PhaseStep
-                {
-                    
-                    public override void Execute()
-                    {
-                        throw new System.NotImplementedException();
-                    }
-                    
-                }
-
-            }
-
+            throw new System.NotImplementedException();
         }
 
     }

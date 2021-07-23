@@ -1,13 +1,8 @@
-namespace MTG
+namespace MTG.Backend
 {
 
-    namespace Backend
+    public interface IDependency
     {
-
-        public interface IDependency
-        {
-
-        }
 
     }
 

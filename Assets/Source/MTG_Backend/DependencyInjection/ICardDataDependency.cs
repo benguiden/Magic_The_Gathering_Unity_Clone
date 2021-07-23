@@ -1,19 +1,13 @@
-namespace MTG
+namespace MTG.Backend
 {
 
-    namespace Backend
+    public interface ICardDataDependency : IDependency
     {
 
-        public interface ICardDataDependency : IDependency
-        {
+        void SetDependency(CardData cardData);
 
-            void SetDependency(CardData cardData);
-            
-            [Dependency]
-            CardData CardDataDependency { get; }
+        [Dependency] CardData CardDataDependency { get; }
 
-        }
-        
     }
 
 }

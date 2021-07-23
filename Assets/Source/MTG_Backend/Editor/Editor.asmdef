@@ -1,0 +1,16 @@
+{
+    "name": "MTG_Backend.Editor",
+    "rootNamespace": "MTG.Backend.Editor",
+    "references": [
+        "GUID:dfb06b1d2889e764f89d5b648b10388f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

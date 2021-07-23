@@ -1,19 +1,13 @@
-namespace MTG
+namespace MTG.Backend
 {
 
-    namespace Backend
+    public interface ITurnProcessorDependencies : IDependency
     {
 
-        public interface ITurnProcessorDependencies : IDependency
-        {
+        void SetDependency(TurnProcessor turnProcessor);
 
-            void SetDependency(TurnProcessor turnProcessor);
-            
-            [Dependency]
-            TurnProcessor TurnProcessorDependency { get; }
+        [Dependency] TurnProcessor TurnProcessorDependency { get; }
 
-        }
-        
     }
 
 }

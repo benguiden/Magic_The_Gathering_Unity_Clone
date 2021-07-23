@@ -1,26 +1,37 @@
+using System;
+using Newtonsoft.Json;
 using UnityEngine;
 
-namespace MTG
+namespace MTG.Backend
 {
-    namespace Backend
+
+    [Serializable]
+    public class CardData_Creature : CardData, ICardAttribute_ManaCost, ICardAttribute_Power, ICardAttribute_Toughness
     {
 
-        public class CardData_Creature : CardData, ICardPowerToughness, ICardManaCost
-        {
+        public override CardType CardType => CardType.Creature;
 
-            public override CardType CardType => CardType.Creature;
-            
-            [SerializeField] private CreaturePower m_power;
-            public CreaturePower Power => m_power;
-            
-            [SerializeField] private CreatureToughness m_toughness;
-            public CreatureToughness Toughness => m_toughness;
-            
-            [SerializeField] private ManaCost m_manaCost;
-            public ManaCost ManaCost => m_manaCost;
-            
-        }
-
+        [SerializeField]
+        [CardAttributeDefaultValue(typeof(ICardAttribute_ManaCost))]
+        [JsonProperty(Order = CardData_IO.Json.MANA_COST_JSON_ORDER, PropertyName = CardData_IO.Json.MANA_COST_JSON_NAME)]
+        private ManaCost m_manaCost;
+        
+        public ManaCost ManaCost => m_manaCost;
+        
+        [SerializeField] 
+        [CardAttributeDefaultValue(typeof(ICardAttribute_Power))]
+        [JsonProperty(Order = CardData_IO.Json.POWER_JSON_ORDER, PropertyName = CardData_IO.Json.POWER_JSON_NAME)]
+        private CardPower m_power;
+        
+        public CardPower Power => m_power;
+        
+        [SerializeField]
+        [CardAttributeDefaultValue(typeof(ICardAttribute_Toughness))]
+        [JsonProperty(Order = CardData_IO.Json.TOUGHNESS_JSON_ORDER, PropertyName = CardData_IO.Json.TOUGHNESS_JSON_NAME)]
+        private CardToughness m_toughness;
+        
+        public CardToughness Toughness => m_toughness;
+        
     }
 
 }

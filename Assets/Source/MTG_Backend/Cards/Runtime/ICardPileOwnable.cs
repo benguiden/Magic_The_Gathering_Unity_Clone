@@ -1,15 +1,11 @@
-namespace MTG
+namespace MTG.Backend
 {
-    namespace Backend
+
+    public interface ICardPileOwnable
     {
 
-        public interface ICardPileOwnable
-        {
+        public CardRuntimeCollection OwningCardRuntimeCollection { get; }
 
-            public CardRuntimeCollection OwningCardRuntimeCollection { get; }
-
-        }
-        
     }
-    
+
 }

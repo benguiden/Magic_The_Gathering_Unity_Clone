@@ -1,3 +1,14 @@
 {
-	"name": "MTG_Backend"
+    "name": "MTG_Backend",
+    "rootNamespace": "MTG.Backend",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

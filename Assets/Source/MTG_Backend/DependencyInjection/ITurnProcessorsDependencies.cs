@@ -1,21 +1,15 @@
 using System.Collections.Generic;
 
-namespace MTG
+namespace MTG.Backend
 {
 
-    namespace Backend
+    public interface ITurnProcessorsDependencies : IDependency
     {
 
-        public interface ITurnProcessorsDependencies : IDependency
-        {
+        void SetDependency(IEnumerable<TurnProcessor> turnProcessors);
 
-            void SetDependency(IEnumerable<TurnProcessor> turnProcessors);
-            
-            [Dependency]
-            IEnumerable<TurnProcessor> TurnProcessorsDependency { get; }
+        [Dependency] IEnumerable<TurnProcessor> TurnProcessorsDependency { get; }
 
-        }
-        
     }
 
 }
