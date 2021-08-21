@@ -10,7 +10,11 @@ namespace MTG.Backend
         {
             return new TurnPhase[]
             {
-                new TurnPhase_StandardBeginningPhase(this)
+                new TurnPhase_StandardBeginningPhase(),
+                new TurnPhase_StandardMainPhase(),
+                new TurnPhase_StandardCombatPhase(),
+                new TurnPhase_StandardMainPhase(),
+                new TurnPhase_StandardEndingPhase()
             };
         }
 

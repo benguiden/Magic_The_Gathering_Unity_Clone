@@ -1,13 +1,12 @@
 ///TODO: Needs to be owned to a player
 
+using System;
+
 namespace MTG.Backend
 {
 
-    public abstract partial class TurnProcessor : IPlayerRuntimeOwnable
+    public abstract partial class TurnProcessor
     {
-
-        private PlayerRuntime m_owningPlayer;
-        public PlayerRuntime OwningPlayer => m_owningPlayer;
 
         private TurnPhase[] m_phases;
 
@@ -18,40 +17,38 @@ namespace MTG.Backend
                 ? m_phases[m_currentPhaseIndex]
                 : null;
 
-        public bool IsActive { get; private set; } = false;
+        public bool IsActive
+        {
+            get => ActiveInstance == this;
+            private set
+            {
+                if (value && !IsActive)
+                    SetAsSingleActiveInstance();
+                else if (!value && IsActive)
+                    ActiveInstance = null;
+            }
+        }
 
         public TurnProcessor()
         {
             m_phases = ImplementTurnPhases();
+            foreach (TurnPhase phase in m_phases)
+            {
+                phase.SetDependency(this);
+                DependencyVerifying.VerifyDependencies(phase);
+            }
         }
+
+        public static implicit operator bool(TurnProcessor turnProcessor) => turnProcessor != null;
 
         protected abstract TurnPhase[] ImplementTurnPhases();
-
-        public virtual TurnProcessor Copy(PlayerRuntime owningPlayer)
-        {
-            return new TurnProcessor_Standard()
-            {
-                m_owningPlayer = owningPlayer,
-                m_phases = CopyPhases()
-            };
-        }
-
-        protected TurnPhase[] CopyPhases()
-        {
-            var copiedPhases = new TurnPhase[m_phases.Length];
-            for (int i = 0; i < copiedPhases.Length; i++)
-            {
-                copiedPhases[i] = m_phases[i].Copy(this);
-            }
-
-            return copiedPhases;
-        }
-
 
         public void StartTurn()
         {
             IsActive = true;
+            m_currentPhaseIndex = 0;
             StartTurnImplemented();
+            CurrentPhase.Enter();
         }
 
         public void EndTurn()
@@ -60,12 +57,21 @@ namespace MTG.Backend
             m_currentPhaseIndex = -1;
             IsActive = false;
             EndImplemented();
+            StartNextTurn();
         }
 
         protected abstract void StartTurnImplemented();
         protected abstract void EndImplemented();
 
-        public virtual void NextPhase()
+        protected void StartNextTurn()
+        {
+            if (m_owningRoundProcessor == null)
+                throw new NullReferenceException();
+
+            m_owningRoundProcessor.StartNextTurn();
+        }
+        
+        public virtual void StartNextPhase()
         {
             if (!IsActive)
                 return;
@@ -84,13 +90,45 @@ namespace MTG.Backend
 
     }
 
-    public abstract partial class TurnProcessor : IPlayerRuntimeDependency
+    public abstract partial class TurnProcessor : IPlayerRuntimeDependency, IPlayerRuntimeOwnable
     {
 
-        public void SetDependency(PlayerRuntime playerRuntime) => m_owningPlayer = playerRuntime;
+        private PlayerRuntime m_owningPlayer;
+        
+        public PlayerRuntime OwningPlayer => m_owningPlayer;
 
+        public void SetDependency(PlayerRuntime playerRuntime) => m_owningPlayer = playerRuntime;
+        
         public PlayerRuntime PlayerRuntimeDependency => OwningPlayer;
 
     }
+    
+    public abstract partial class TurnProcessor : IRoundProcessorDependency, IRoundProcessorOwnable
+    {
 
+        protected RoundProcessor m_owningRoundProcessor;
+
+        public RoundProcessor OwningRoundProcessor => m_owningRoundProcessor;
+
+        public void SetDependency(RoundProcessor roundProcessor) => m_owningRoundProcessor = roundProcessor;
+
+        public RoundProcessor RoundProcessorDependency => m_owningRoundProcessor;
+
+    }
+    
+    public abstract partial class TurnProcessor : ISingleActiveInstance
+    {
+        
+        public static TurnProcessor ActiveInstance { get; private set; }
+        
+        public void SetAsSingleActiveInstance()
+        {
+            if (ActiveInstance)
+                throw new AlreadySingleActiveInstance();
+
+            ActiveInstance = this;
+        }
+        
+    }
+    
 }

@@ -1,3 +1,5 @@
+using System;
+
 namespace MTG.Backend
 {
 
@@ -6,24 +8,53 @@ namespace MTG.Backend
 
         protected CardData m_cardData;
         public CardData CardData => m_cardData;
+        
+        #region Tapping
+        
+        public abstract bool IsTapable { get; }
+        public abstract bool IsTapped { get; protected set; }
+        
+        public void Tap()
+        {
+            if (!IsTapable)
+                throw new NotImplementedException();
+            
+            if (!IsTapped)
+                IsTapped = true;
+        }
 
-    }
+        public void Tap(bool assertIsUntapped)
+        {
+            if (!IsTapable)
+                throw new NotImplementedException();
+            
+            if (!IsTapped)
+                IsTapped = true;
+            else if (assertIsUntapped)
+                throw new NotImplementedException();
+        }
 
-    public abstract partial class CardRuntime : ICardPileOwnable
-    {
+        public void Untap()
+        {
+            if (!IsTapable)
+                throw new NotImplementedException();
+            
+            if (IsTapped)
+                IsTapped = false;
+        }
 
-        private CardRuntimeCollection m_owningCardRuntimeCollection;
-
-        public CardRuntimeCollection OwningCardRuntimeCollection => m_owningCardRuntimeCollection;
-
-    }
-
-    public abstract partial class CardRuntime : ICardRuntimeCollectionDependency
-    {
-
-        public void SetDependency(CardRuntimeCollection cardRuntimeCollection) => m_owningCardRuntimeCollection = cardRuntimeCollection;
-
-        public CardRuntimeCollection CardRuntimeCollectionDependency => m_owningCardRuntimeCollection;
+        public void Untap(bool assertIsTapped)
+        {
+            if (!IsTapable)
+                throw new NotImplementedException();
+            
+            if (IsTapped)
+                IsTapped = false;
+            else if (assertIsTapped)
+                throw new NotImplementedException();
+        }
+        
+        #endregion
 
     }
 

@@ -6,8 +6,6 @@ namespace MTG.Backend.TurnPhases
     public class TurnPhase_StandardBeginningPhase : TurnPhase
     {
 
-        public TurnPhase_StandardBeginningPhase(TurnProcessor turnTurnProcessor) : base(turnTurnProcessor) { }
-
         protected override PhaseStep[] ImplementPhaseSteps()
         {
             return new PhaseStep[]
@@ -17,8 +15,6 @@ namespace MTG.Backend.TurnPhases
                 new PhaseStep_Draw()
             };
         }
-
-        public override TurnPhase Copy(TurnProcessor turnTurnProcessor) => new TurnPhase_StandardBeginningPhase(turnTurnProcessor);
 
         protected override void EnterImplemented() { }
 

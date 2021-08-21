@@ -6,14 +6,14 @@ namespace MTG.Backend
     public class PlayerRuntime_Standard : PlayerRuntime
     {
 
-        public PlayerCardRuntimeCollections CardCollectionsStandard => m_cardCollections as PlayerCardRuntimeCollections_Standard;
+        public PlayerZones CardCollectionsStandard => m_zones as PlayerZones_Standard;
 
-        public override void SetDependency(PlayerCardRuntimeCollections playerCardRuntimeCollections)
+        public override void SetDependency(PlayerZones playerZones)
         {
-            if (!(playerCardRuntimeCollections is PlayerCardRuntimeCollections_Standard))
+            if (!(playerZones is PlayerZones_Standard))
                 throw new Exception();
 
-            m_cardCollections = playerCardRuntimeCollections;
+            m_zones = playerZones;
         }
 
     }

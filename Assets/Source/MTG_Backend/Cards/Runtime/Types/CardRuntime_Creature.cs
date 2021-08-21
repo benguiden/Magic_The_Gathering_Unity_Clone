@@ -3,7 +3,9 @@ using System;
 namespace MTG.Backend
 {
 
-    public abstract class CardRuntime_Creature : CardRuntime
+    using CardTypeProperties;
+    
+    public partial class CardRuntime_Creature : CardRuntime
     {
 
         public CardData_Creature CreatureCardData => m_cardData as CardData_Creature;
@@ -15,6 +17,15 @@ namespace MTG.Backend
 
             m_cardData = cardData;
         }
+
+        public override bool IsTapable => true;
+        public override bool IsTapped { get; protected set; }
+        
+    }
+
+    public partial class CardRuntime_Creature : IPermanent
+    {
+        
     }
 
 }

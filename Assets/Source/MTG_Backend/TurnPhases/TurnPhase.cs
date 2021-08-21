@@ -6,8 +6,6 @@ namespace MTG.Backend
     public abstract partial class TurnPhase
     {
 
-        private readonly TurnProcessor m_owningTurnProcessor;
-
         private PhaseStep[] m_steps;
 
         private int m_currentStepIndex = -1;
@@ -17,26 +15,46 @@ namespace MTG.Backend
                 ? m_steps[m_currentStepIndex]
                 : null;
 
-        public bool IsActive { get; private set; } = false;
-
-        public TurnPhase(TurnProcessor turnTurnProcessor)
+        public bool IsActive
         {
-            m_owningTurnProcessor = turnTurnProcessor;
-            m_steps = ImplementPhaseSteps();
+            get => ActiveInstance == this;
+            private set
+            {
+                if (value && !IsActive)
+                    SetAsSingleActiveInstance();
+                else if (!value && IsActive)
+                    ActiveInstance = null;
+            }
         }
 
-        protected abstract PhaseStep[] ImplementPhaseSteps();
+        public TurnPhase()
+        {
+            m_steps = ImplementPhaseSteps();
+            foreach (PhaseStep step in m_steps)
+            {
+                step.SetDependency(this);
+                DependencyVerifying.VerifyDependencies(step);
+            }
+        }
 
-        public abstract TurnPhase Copy(TurnProcessor turnTurnProcessor);
+        public static implicit operator bool(TurnPhase turnPhase) => turnPhase != null;
+        
+        protected abstract PhaseStep[] ImplementPhaseSteps();
 
         public void Enter()
         {
             IsActive = true;
+            m_currentStepIndex = 0;
             EnterImplemented();
+            if (CurrentStep)
+                CurrentStep.SetAsSingleActiveInstance();
+            //CurrentStep.Execute();
         }
 
         public void Exit()
         {
+            PhaseStep.TempClearSingleInstance();
+            m_currentStepIndex = -1;
             IsActive = false;
             ExitImplemented();
         }
@@ -44,12 +62,12 @@ namespace MTG.Backend
         protected abstract void EnterImplemented();
         protected abstract void ExitImplemented();
 
-        protected void NextPhase()
+        protected void StartNextPhase()
         {
             if (m_owningTurnProcessor == null)
                 throw new NullReferenceException();
 
-            m_owningTurnProcessor.NextPhase();
+            m_owningTurnProcessor.StartNextPhase();
         }
 
         public void ExecuteNextStep()
@@ -57,16 +75,55 @@ namespace MTG.Backend
             if (!IsActive)
                 return;
 
-            CurrentStep.Execute();
+            PhaseStep.TempClearSingleInstance();
 
             m_currentStepIndex++;
 
             if (m_currentStepIndex >= m_steps.Length)
             {
-                NextPhase();
+                StartNextPhase();
             }
+
+            if (CurrentStep)
+                CurrentStep.SetAsSingleActiveInstance();
+            //CurrentStep.Execute();
         }
 
+    }
+    
+    public abstract partial class TurnPhase : ITurnProcessorDependency, ITurnProcessorOwnable
+    {
+        
+        protected TurnProcessor m_owningTurnProcessor;
+        
+        public TurnProcessor OwningTurnProcessor => m_owningTurnProcessor;
+
+        public void SetDependency(TurnProcessor turnProcessor) => m_owningTurnProcessor = turnProcessor;
+
+        public TurnProcessor TurnProcessorDependency => m_owningTurnProcessor;
+
+    }
+
+    public abstract partial class TurnPhase : IPlayerRuntimeOwnable
+    {
+
+        public PlayerRuntime OwningPlayer => m_owningTurnProcessor.OwningPlayer;
+
+    }
+    
+    public abstract partial class TurnPhase : ISingleActiveInstance
+    {
+        
+        public static TurnPhase ActiveInstance { get; private set; }
+        
+        public void SetAsSingleActiveInstance()
+        {
+            if (ActiveInstance)
+                throw new AlreadySingleActiveInstance();
+
+            ActiveInstance = this;
+        }
+        
     }
 
 }

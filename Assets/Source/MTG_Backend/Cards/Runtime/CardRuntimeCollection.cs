@@ -6,11 +6,8 @@ using System.Collections.Generic;
 namespace MTG.Backend
 {
 
-    public partial class CardRuntimeCollection : IPlayerRuntimeOwnable
+    public partial class CardRuntimeCollection
     {
-
-        private PlayerRuntime m_ownerPlayer;
-        public PlayerRuntime OwningPlayer => m_ownerPlayer;
 
         private List<CardRuntime> m_containedCards;
         public CardRuntime[] ContainedCards => m_containedCards.ToArray();
@@ -47,6 +44,15 @@ namespace MTG.Backend
         public void SetDependency(PlayerRuntime playerRuntime) => m_ownerPlayer = playerRuntime;
 
         public PlayerRuntime PlayerRuntimeDependency => m_ownerPlayer;
+
+    }
+    
+    public partial class CardRuntimeCollection : IPlayerRuntimeOwnable
+    {
+
+        private PlayerRuntime m_ownerPlayer;
+        
+        public PlayerRuntime OwningPlayer => m_ownerPlayer;
 
     }
 

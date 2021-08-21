@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace MTG.Backend
 {
 
@@ -11,8 +13,8 @@ namespace MTG.Backend
             var playerA = new PlayerRuntime_Standard();
             var playerB = new PlayerRuntime_Standard();
 
-            var playerACards = new PlayerCardRuntimeCollections_Standard();
-            var playerBCards = new PlayerCardRuntimeCollections_Standard();
+            var playerAZones = new PlayerZones_Standard();
+            var playerBZones = new PlayerZones_Standard();
 
             var matchProcessor = new MatchProcessor_Standard();
             var roundProcessor = new RoundProcessor_Standard();
@@ -22,26 +24,23 @@ namespace MTG.Backend
 
             //Injection
             playerA.SetDependency(turnProcessorPlayerA);
-            playerA.SetDependency(playerACards);
+            playerA.SetDependency(playerAZones);
 
             playerB.SetDependency(turnProcessorPlayerB);
-            playerB.SetDependency(playerBCards);
-
-            playerACards.SetDependency(new CardRuntime[0]);
-            playerBCards.SetDependency(new CardRuntime[0]);
+            playerB.SetDependency(playerBZones);
 
             matchProcessor.SetDependency(roundProcessor);
+            roundProcessor.SetDependency(matchProcessor);
             roundProcessor.SetDependency(new[] {turnProcessorPlayerA, turnProcessorPlayerB});
 
             turnProcessorPlayerA.SetDependency(playerA);
+            turnProcessorPlayerA.SetDependency(roundProcessor);
             turnProcessorPlayerB.SetDependency(playerB);
+            turnProcessorPlayerB.SetDependency(roundProcessor);
 
             //Verification
             DependencyVerifying.VerifyDependencies(playerA);
             DependencyVerifying.VerifyDependencies(playerB);
-
-            DependencyVerifying.VerifyDependencies(playerACards);
-            DependencyVerifying.VerifyDependencies(playerBCards);
 
             DependencyVerifying.VerifyDependencies(matchProcessor);
             DependencyVerifying.VerifyDependencies(roundProcessor);
@@ -49,6 +48,15 @@ namespace MTG.Backend
             DependencyVerifying.VerifyDependencies(turnProcessorPlayerA);
             DependencyVerifying.VerifyDependencies(turnProcessorPlayerB);
 
+            //Start
+            matchProcessor.StartMatch();
+        }
+
+        [UnityEditor.MenuItem("Temp/Test Setup")]
+        private static void TestSetup()
+        {
+            if (Application.isPlaying)
+                Setup();
         }
 
     }

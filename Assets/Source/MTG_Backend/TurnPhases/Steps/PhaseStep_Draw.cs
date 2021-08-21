@@ -8,7 +8,7 @@ namespace MTG.Backend.TurnPhases.PhaseSteps
         {
             throw new System.NotImplementedException();
         }
-
+        
     }
 
 }

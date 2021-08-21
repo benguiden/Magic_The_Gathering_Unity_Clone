@@ -10,12 +10,12 @@ namespace MTG.Backend
         private TurnProcessor m_turnProcessor;
         public TurnProcessor TurnProcessor => m_turnProcessor;
 
-        protected PlayerCardRuntimeCollections m_cardCollections;
-        public PlayerCardRuntimeCollections CardCollections => m_cardCollections;
+        protected PlayerZones m_zones;
+        public PlayerZones Zones => m_zones;
 
     }
 
-    public abstract partial class PlayerRuntime : ITurnProcessorDependencies
+    public abstract partial class PlayerRuntime : ITurnProcessorDependency
     {
 
         public void SetDependency(TurnProcessor turnProcessor) => m_turnProcessor = turnProcessor;
@@ -24,12 +24,12 @@ namespace MTG.Backend
 
     }
 
-    public abstract partial class PlayerRuntime : IPlayerCardRuntimeCollectionsDependency
+    public abstract partial class PlayerRuntime : IPlayerZonesDependency
     {
 
-        public virtual void SetDependency(PlayerCardRuntimeCollections playerCardRuntimeCollections) => m_cardCollections = playerCardRuntimeCollections;
+        public virtual void SetDependency(PlayerZones playerZones) => m_zones = playerZones;
 
-        public PlayerCardRuntimeCollections PlayerCardRuntimeCollectionsDependency => m_cardCollections;
+        public PlayerZones PlayerZonesDependency => m_zones;
 
     }
 
