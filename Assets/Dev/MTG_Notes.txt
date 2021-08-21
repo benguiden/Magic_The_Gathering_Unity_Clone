@@ -5,43 +5,64 @@
 Match - The entire game of MTG that is completed when one of the players wins
 Round - Ends when each layer takes their turns
 Turn - Ends for each player independently once they've completed all of their steps / phases
+Turn Phase - There's generally 5 phases for each turn, they're split up to help the flow of the game
+Phase Step - A phase step is a action that happens during a turn phase, a turn phase might have multiple steps so their actions are split up, a phase step should be reversable/undoable in the future
 
 Player
-    -Life
-    -Deck
-    -Hand
-    -Battlefield Side
-    -Graveyard
-    -Exile
+    - Life
+    - Deck
+    - Hand
+    - Battlefield Side
+    - Graveyard
+    - Exile
     
  Card_Data
-    -Name
-    -Type
-    -Abilities
-    -Flavour
-    -Power
-    -Toughness
-    -Casting Cost
+    - Name
+    - Type
+    - Abilities
+    - Flavour
+    - Power
+    - Toughness
+    - Casting Cost
     
 Card
-    -GUID
-    -State
-    -Player
-    -Battlefield Side
+    - GUID
+    - State
+    - Player
+    - Battlefield Side
     
 Board
-    -Battlefield Sides
+    - Battlefield Sides
     
 Battlefield Side
-    -Active cards
-    -Graveyard
-    -Exile
-    -Player
+    - Active cards
+    - Graveyard
+    - Exile
+    - Player
     
     
 
 
 
 MatchProcessor
-    -Determines win/lose conditions
-    -Going to iterate through the round processor -> turn processor -> turn phase processor
+    - Determines win/lose conditions
+    - Repeatably executes the round processor
+    
+Round Processor
+    - Keeps track of round number
+    - Iterates over turn processors
+    
+Turn Processor
+    - Contains an owning player
+    - Iterates over turn phases
+    - One turn processors for each player 
+    
+Turn Phase
+    - Contains an owning turn processor
+    - Iterates over phase steps
+    - Different turn phases will exist while playing, each with their own list of different phase steps
+    
+Phase Step
+    - Implements entry and exit behaviour
+    - Implements an execute function
+    - Execute function might depend on player input and be asynchronous
