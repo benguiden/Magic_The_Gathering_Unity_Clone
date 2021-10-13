@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32f2781ebb2c55b4e9d91fcc9374cc8b, type: 3}
+  m_Name: DefaultWidgetPrefabs
+  m_EditorClassIdentifier: 
+  m_cardPrefab: {fileID: 2985704953952267835, guid: af90f08a4d986d042aa461eb66a3ca9c, type: 3}
+  m_manaCostGenericPrefab: {fileID: 7073801511247989207, guid: f8aa898f72586834584ef2f709747009, type: 3}
+  m_manaCostBlackPrefab: {fileID: 7073801511247989207, guid: c36716df0de86c1469f8de835a396bd0, type: 3}
+  m_manaCostBluePrefab: {fileID: 7073801511247989207, guid: 44d1a8c9dc4ca824aabafe0d08321422, type: 3}
+  m_manaCostGreenPrefab: {fileID: 7073801511247989207, guid: b328dd776ff2fcc4fa26520cf8d9b96e, type: 3}
+  m_manaCostRedPrefab: {fileID: 7073801511247989207, guid: 2d57e5e325650104699e9b0acd7ad7a9, type: 3}
+  m_manaCostWhitePrefab: {fileID: 7073801511247989207, guid: cbd51225b0945b447ad2e9259d75e1d9, type: 3}
+  m_manaCostWidgetOffset: -48
