@@ -1,4 +1,5 @@
 /// TODO: Convert UI from IMGui to UIElements 
+/// TODO: Fix null exception in Awake -> Create a singleton editor styles class that holds all of the styles
 
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,14 @@ namespace MTG.Backend.Editor
 
         private void OnGUI()
         {
+            if (m_foldoutStyle == null)
+            {
+                if (EditorStyles.foldout != null)
+                    m_foldoutStyle = new GUIStyle(EditorStyles.foldout);
+                else
+                    return;
+            }
+
             if (!Application.isPlaying)
             {
                 DrawNotPlayingMessage();

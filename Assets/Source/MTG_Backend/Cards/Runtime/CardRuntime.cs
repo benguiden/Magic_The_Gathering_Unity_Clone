@@ -14,16 +14,7 @@ namespace MTG.Backend
         public abstract bool IsTapable { get; }
         public abstract bool IsTapped { get; protected set; }
         
-        public void Tap()
-        {
-            if (!IsTapable)
-                throw new NotImplementedException();
-            
-            if (!IsTapped)
-                IsTapped = true;
-        }
-
-        public void Tap(bool assertIsUntapped)
+        public void Tap(bool assertIsUntapped = true)
         {
             if (!IsTapable)
                 throw new NotImplementedException();
@@ -34,16 +25,7 @@ namespace MTG.Backend
                 throw new NotImplementedException();
         }
 
-        public void Untap()
-        {
-            if (!IsTapable)
-                throw new NotImplementedException();
-            
-            if (IsTapped)
-                IsTapped = false;
-        }
-
-        public void Untap(bool assertIsTapped)
+        public void Untap(bool assertIsTapped = true)
         {
             if (!IsTapable)
                 throw new NotImplementedException();

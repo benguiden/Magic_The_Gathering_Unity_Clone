@@ -7,7 +7,7 @@ namespace MTG.Backend
 
     [Serializable]
     [JsonConverter(typeof(CardData_IO.Json.CardDataConverter))]
-    public abstract class CardData :  ICardAttribute_DisplayName, ICardAttribute_Guid
+    public abstract partial class CardData :  ICardAttribute_DisplayName, ICardAttribute_Guid
     {
         
         [JsonProperty(Order = CardData_IO.Json.CARD_TYPE_JSON_ORDER, PropertyName = CardData_IO.Json.CARD_TYPE_JSON_NAME)]
@@ -29,4 +29,21 @@ namespace MTG.Backend
         
     }
 
+    public abstract partial class CardData
+    {
+
+        public bool HasManaCost(out ManaCost manaCost)
+        {
+            if (this is ICardAttribute_ManaCost)
+            {
+                manaCost = ((ICardAttribute_ManaCost) this).ManaCost;
+                return true;
+            }
+
+            manaCost = ManaCost.None;
+            return false;
+        }
+
+    }
+    
 }

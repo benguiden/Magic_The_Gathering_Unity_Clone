@@ -1,4 +1,5 @@
 ///TODO: Create exception for invalid card data
+///TODO: Consider putting this along with other card attributes in MTG.Core
 
 using System;
 using Newtonsoft.Json;
@@ -16,12 +17,12 @@ namespace MTG.Backend
     
     public enum ManaColour
     {
-        Generic,
-        Black,
-        Blue,
-        Green,
-        Red,
-        White
+        Generic = 0,
+        Black = 1,
+        Blue = 2,
+        Green = 3,
+        Red = 4,
+        White = 5
     }
 
     [Serializable]
@@ -45,6 +46,8 @@ namespace MTG.Backend
         private const int GREEN_BIT_SHIFTS = 15;
         private const int RED_BIT_SHIFTS = 20;
         private const int WHITE_BIT_SHIFTS = 25;
+
+        public static readonly ManaCost None = new ManaCost(0);
 
         [JsonProperty]
         private int m_unionCostValue;
