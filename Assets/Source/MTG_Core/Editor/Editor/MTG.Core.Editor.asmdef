@@ -1,0 +1,16 @@
+{
+    "name": "MTG_Core.Editor",
+    "rootNamespace": "MTG.Core.Editor",
+    "references": [
+        "GUID:b59394cf1acaefa4ea3c808919172349"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

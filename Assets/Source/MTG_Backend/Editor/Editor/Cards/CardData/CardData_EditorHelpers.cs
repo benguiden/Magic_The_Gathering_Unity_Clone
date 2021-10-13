@@ -26,7 +26,7 @@ namespace MTG.Backend.Editor
             {
                 var defaultAttributes = fieldWithDefault.GetCustomAttributes(typeof(CardAttributeDefaultValue), true) as CardAttributeDefaultValue[];
                 if (defaultAttributes.Length != 1)
-                    throw new Exception();
+                    throw new NotImplementedException();
 
                 fieldWithDefault.SetValue(cardData, defaultAttributes[0].DefaultValue);
             }
